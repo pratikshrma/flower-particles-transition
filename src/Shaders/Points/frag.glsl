@@ -11,7 +11,7 @@ uniform float uLuminosity;
 uniform float uProgress;
 
 vec4 colorFinder() {
-  vec4 finalColor = vec4(1.0, 1.0, 0.0, 1.0);
+  vec4 finalColor = vec4(0.0);
   vec4 vid1FColor = texture2D(uTextureVid1F, vUv);
   vec4 vid1EColor = texture2D(uTextureVid1E, vUv);
   vec4 vid2FColor = texture2D(uTextureVid2F, vUv);
@@ -31,7 +31,7 @@ vec4 colorFinder() {
 
 void main() {
   vec4 finalColor = colorFinder();
-  if (finalColor.r < 0.1 && finalColor.g < 0.1 && finalColor.b < 0.1)
+  if (finalColor.r < 0.01 && finalColor.g < 0.01 && finalColor.b < 0.01)
     discard;
 
   gl_FragColor = finalColor * uLuminosity;

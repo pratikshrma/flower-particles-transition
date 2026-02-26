@@ -120,7 +120,7 @@ void main() {
 
   vec3 distortion =
       vec3(position.x, position.y, 0.0) * curl(position * 2.0, uTime, 1.0);
-  vec3 distortedPosition = position + distortion;
+  vec3 distortedPosition = position + distortion * 2.0;
 
   vec3 modifiedPosition = mix(position, distortedPosition, progress);
   vec4 modelPosition = modelMatrix * vec4(modifiedPosition, 1.0);

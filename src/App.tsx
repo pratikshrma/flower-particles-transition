@@ -16,10 +16,12 @@ const App = () => {
   const video1PlayerHolderRef = useRef<HTMLDivElement | null>(null)
   const video2PlayerHolderRef = useRef<HTMLDivElement | null>(null)
   const video3PlayerHolderRef = useRef<HTMLDivElement | null>(null)
-  const tl = useRef<any>()
+  const tl = useRef<any>(null)
 
+
+  const BLOOM_INITIAL = 0.9
   const progress = useRef<number>(0.0)
-  const bloomIntensity = useRef<number>(1.0)
+  const bloomIntensity = useRef<number>(BLOOM_INITIAL)
   // const { progress } = useControls({
   //   'random controls': folder({
   //     progress: {
@@ -57,6 +59,7 @@ const App = () => {
 
     // const EPIC_EASE = "cubic-bezier(0.95, 0.0, 0.05, 1)"
     const EPIC_EASE = "expo.inOut"
+    const BLOOM_PEAK = 3.0
 
     tl.current = gsap.timeline({
       paused: false,
@@ -66,29 +69,35 @@ const App = () => {
     // flower 1
     tl.current.to(canvasHolderRef.current, { opacity: 0, duration: 0.01 }, 0)
     tl.current.to(video1PlayerHolderRef.current, { zIndex: 3, duration: 0.01 }, 0)
-    tl.current.call(() => video1PlayerRef.current.play(), null, 0)
+    tl.current.call(() => video1PlayerRef.current?.play(), null, 0)
 
     tl.current.to(video1PlayerHolderRef.current, { zIndex: -1, duration: 0.01 }, 4)
     tl.current.to(canvasHolderRef.current, { opacity: 1, duration: 0.01 }, 4)
-    tl.current.to(progress, { current: 0.999, duration: 10, ease: EPIC_EASE }, 4)
+    tl.current.to(progress, { current: 1, duration: 10, ease: EPIC_EASE }, 4)
+    tl.current.to(bloomIntensity, { current: BLOOM_PEAK, duration: 3, ease: EPIC_EASE }, 6)
+    tl.current.to(bloomIntensity, { current: BLOOM_INITIAL, duration: 3, ease: EPIC_EASE }, 9)
 
     // flower 2 (start at 14.1 instead of 14)
-    tl.current.to(canvasHolderRef.current, { opacity: 0, duration: 0.01 }, 14.1)
-    tl.current.to(video2PlayerHolderRef.current, { zIndex: 3, duration: 0.01 }, 14.1)
-    tl.current.call(() => video2PlayerRef.current.play(), null, 14.1)
+    tl.current.to(canvasHolderRef.current, { opacity: 0, duration: 0.01 }, 14)
+    tl.current.to(video2PlayerHolderRef.current, { zIndex: 3, duration: 0.01 }, 14)
+    tl.current.call(() => video2PlayerRef.current?.play(), null, 14)
 
     tl.current.to(video2PlayerHolderRef.current, { zIndex: -1, duration: 0.01 }, 18.1)
     tl.current.to(canvasHolderRef.current, { opacity: 1, duration: 0.01 }, 17.7)
-    tl.current.to(progress, { current: 1.999, duration: 10, ease: EPIC_EASE }, 18.1)
+    tl.current.to(progress, { current: 2, duration: 10, ease: EPIC_EASE }, 18.1)
+    tl.current.to(bloomIntensity, { current: BLOOM_PEAK, duration: 3, ease: EPIC_EASE }, 20)
+    tl.current.to(bloomIntensity, { current: BLOOM_INITIAL, duration: 3, ease: EPIC_EASE }, 23)
 
     // flower 3 (shifted by +0.1 again)
-    tl.current.to(canvasHolderRef.current, { opacity: 0, duration: 0.01 }, 28.2)
-    tl.current.to(video3PlayerHolderRef.current, { zIndex: 3, duration: 0.01 }, 28.2)
-    tl.current.call(() => video3PlayerRef.current.play(), null, 28.2)
+    tl.current.to(canvasHolderRef.current, { opacity: 0, duration: 0.01 }, 28.1)
+    tl.current.to(video3PlayerHolderRef.current, { zIndex: 3, duration: 0.01 }, 28.1)
+    tl.current.call(() => video3PlayerRef.current?.play(), null, 28.1)
 
     tl.current.to(video3PlayerHolderRef.current, { zIndex: -1, duration: 0.01 }, 32.2)
-    tl.current.to(canvasHolderRef.current, { opacity: 1, duration: 0.01 }, 32)
-    tl.current.to(progress, { current: 2.999, duration: 10, ease: EPIC_EASE }, 32.2)
+    tl.current.to(canvasHolderRef.current, { opacity: 1, duration: 0.01 }, 32.2)
+    tl.current.to(progress, { current: 3, duration: 10, ease: EPIC_EASE }, 32.2)
+    tl.current.to(bloomIntensity, { current: BLOOM_PEAK, duration: 3, ease: EPIC_EASE }, 34.2)
+    tl.current.to(bloomIntensity, { current: BLOOM_INITIAL, duration: 3, ease: EPIC_EASE }, 37.2)
 
     return () => {
       tl.current.kill()
@@ -112,7 +121,7 @@ const App = () => {
           </div>
         </div>
         <div ref={canvasHolderRef} className={style.canvasHolder}>
-          <Canvas linear camera={{
+          <Canvas flat camera={{
             position: [0, 0, -1.1],
           }}>
             <color attach="background" args={['#000']} />
