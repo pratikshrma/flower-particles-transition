@@ -20,24 +20,18 @@ const Experience = ({ progress, bloomIntensity }: { progress: any, bloomIntensit
 
 
   const textureVid1F = useTexture('images/video-01-first.jpg') as THREE.Texture
-  textureVid1F.colorSpace = THREE.SRGBColorSpace
   const textureVid1E = useTexture('images/video-01-end.jpg') as THREE.Texture
-  textureVid1E.colorSpace = THREE.SRGBColorSpace
   const textureVid2F = useTexture('images/video-02-first.jpg') as THREE.Texture
-  textureVid2F.colorSpace = THREE.SRGBColorSpace
   const textureVid2E = useTexture('images/video-02-end.jpg') as THREE.Texture
-  textureVid2E.colorSpace = THREE.SRGBColorSpace
   const textureVid3F = useTexture('images/video-03-first.jpg') as THREE.Texture
-  textureVid3F.colorSpace = THREE.SRGBColorSpace
   const textureVid3E = useTexture('images/video-03-end.jpg') as THREE.Texture
-  textureVid3E.colorSpace = THREE.SRGBColorSpace
   const primitiveRef = useRef<THREE.Mesh | null>(null)
 
 
 
   const { video1PointCloud } = useMemo(() => {
-    const height = 1000
-    const width = 1000
+    const height = 800
+    const width = 400
     const video1Geometry = new THREE.PlaneGeometry(
       1,
       (textureVid1F.image as HTMLImageElement).height / (textureVid1F.image as HTMLImageElement).width,
@@ -81,7 +75,7 @@ const Experience = ({ progress, bloomIntensity }: { progress: any, bloomIntensit
       pointCloudMaterial.uniforms.uLuminosity.value = bloomIntensity.current
 
 
-      console.log(progress)
+      // console.log(progress)
     }
   })
 

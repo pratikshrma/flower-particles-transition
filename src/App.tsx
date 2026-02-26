@@ -19,7 +19,7 @@ const App = () => {
   const tl = useRef<any>(null)
 
 
-  const BLOOM_INITIAL = 0.9
+  const BLOOM_INITIAL = 1
   const progress = useRef<number>(0.0)
   const bloomIntensity = useRef<number>(BLOOM_INITIAL)
   // const { progress } = useControls({
@@ -121,7 +121,7 @@ const App = () => {
           </div>
         </div>
         <div ref={canvasHolderRef} className={style.canvasHolder}>
-          <Canvas flat camera={{
+          <Canvas linear camera={{
             position: [0, 0, -1.1],
           }}>
             <color attach="background" args={['#000']} />
