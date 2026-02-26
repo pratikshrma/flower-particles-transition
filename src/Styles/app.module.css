@@ -1,0 +1,39 @@
+.appHolder {
+  height: 100%;
+  width: 100%;
+  position: relative;
+}
+
+.canvasHolder {
+  height: 100%;
+  width: 100%;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+}
+.videoPlayerHolder {
+  height: 100%;
+  width: 100%;
+  background-color: black;
+  position: relative;
+}
+
+.individualVideoHolder1,
+.individualVideoHolder2,
+.individualVideoHolder3 {
+  height: 100%;
+  width: 100%;
+  position: absolute;
+  z-index: -1;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+video {
+  height: 100%;
+  width: 100%;
+  transform-origin: center center;
+  transform: scale(1.01);
+}
