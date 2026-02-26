@@ -6,6 +6,7 @@ uniform sampler2D uTextureVid2F;
 uniform sampler2D uTextureVid2E;
 uniform sampler2D uTextureVid3F;
 uniform sampler2D uTextureVid3E;
+uniform float uLuminosity;
 
 uniform float uProgress;
 
@@ -30,6 +31,8 @@ vec4 colorFinder() {
 
 void main() {
   vec4 finalColor = colorFinder();
+  if (finalColor.r < 0.1 && finalColor.g < 0.1 && finalColor.b < 0.1)
+    discard;
 
-  gl_FragColor = finalColor;
+  gl_FragColor = finalColor * uLuminosity;
 }

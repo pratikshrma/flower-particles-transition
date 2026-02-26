@@ -3,8 +3,9 @@ import Experience from "./Components/Experience"
 import { OrbitControls } from "@react-three/drei"
 import style from './Styles/app.module.css'
 import gsap from 'gsap'
-import { useControls, folder } from "leva"
+// import { useControls, folder } from "leva"
 import { useEffect, useRef } from "react"
+import PostProcessing from "./Components/PostProcessing"
 
 const App = () => {
   const canvasHolderRef = useRef<HTMLDivElement | null>(null)
@@ -18,12 +19,13 @@ const App = () => {
   const tl = useRef<any>()
 
   const progress = useRef<number>(0.0)
-  // const { uprogress } = useControls({
+  const bloomIntensity = useRef<number>(1.0)
+  // const { progress } = useControls({
   //   'random controls': folder({
-  //     uProgress: {
+  //     progress: {
   //       value: 0.0,
   //       min: 0.0,
-  //       max: 3.0,
+  //       max: 0.999,
   //       step: 0.01
   //     },
   //     uTimeLineProgress: {
@@ -41,6 +43,7 @@ const App = () => {
   // })
 
   useEffect(() => {
+    // return
     if (
       !video1PlayerHolderRef.current ||
       !video2PlayerHolderRef.current ||
@@ -109,12 +112,13 @@ const App = () => {
           </div>
         </div>
         <div ref={canvasHolderRef} className={style.canvasHolder}>
-          <Canvas linear flat camera={{
+          <Canvas linear camera={{
             position: [0, 0, -1.1],
           }}>
             <color attach="background" args={['#000']} />
             <OrbitControls />
-            <Experience progress={progress} />
+            <PostProcessing />
+            <Experience progress={progress} bloomIntensity={bloomIntensity} />
           </Canvas>
         </div>
       </div>
