@@ -31,7 +31,7 @@ const Experience = ({ progress, bloomIntensity }: { progress: any, bloomIntensit
 
   const { video1PointCloud } = useMemo(() => {
     const height = 800
-    const width = 400
+    const width = 600
     const video1Geometry = new THREE.PlaneGeometry(
       1,
       (textureVid1F.image as HTMLImageElement).height / (textureVid1F.image as HTMLImageElement).width,
