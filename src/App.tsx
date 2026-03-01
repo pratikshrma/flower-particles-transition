@@ -1,11 +1,9 @@
 import { Canvas } from "@react-three/fiber"
 import Experience from "./Components/Experience"
-import { OrbitControls } from "@react-three/drei"
 import style from './Styles/app.module.css'
 import gsap from 'gsap'
 // import { useControls, folder } from "leva"
 import { useEffect, useRef } from "react"
-import PostProcessing from "./Components/PostProcessing"
 
 const App = () => {
   const canvasHolderRef = useRef<HTMLDivElement | null>(null)
@@ -123,12 +121,11 @@ const App = () => {
           </div>
         </div>
         <div ref={canvasHolderRef} className={style.canvasHolder}>
-          <Canvas linear camera={{
+          <Canvas flat camera={{
             position: [0, 0, -1.1],
-          }}>
+          }}
+          >
             <color attach="background" args={['#000']} />
-            <OrbitControls />
-            <PostProcessing />
             <Experience progress={progress} bloomIntensity={bloomIntensity} />
           </Canvas>
         </div>
