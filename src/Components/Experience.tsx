@@ -70,6 +70,7 @@ const Experience = ({ progress, bloomIntensity }: { progress: any, bloomIntensit
       pointCloudMaterial.uniforms.uTextureVid2E.value = textureVid2E
       pointCloudMaterial.uniforms.uTextureVid3F.value = textureVid3F
       pointCloudMaterial.uniforms.uTextureVid3E.value = textureVid3E
+      // pointCloudMaterial.uniforms.uProgress.value = progress
       pointCloudMaterial.uniforms.uProgress.value = progress.current
       pointCloudMaterial.uniforms.uTime.value = state.clock.elapsedTime * 0.1
       pointCloudMaterial.uniforms.uLuminosity.value = bloomIntensity.current

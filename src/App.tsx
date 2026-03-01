@@ -3,7 +3,7 @@ import Experience from "./Components/Experience"
 import { OrbitControls } from "@react-three/drei"
 import style from './Styles/app.module.css'
 import gsap from 'gsap'
-// import { useControls, folder } from "leva"
+import { useControls, folder } from "leva"
 import { useEffect, useRef } from "react"
 import PostProcessing from "./Components/PostProcessing"
 
@@ -16,7 +16,7 @@ const App = () => {
   const video1PlayerHolderRef = useRef<HTMLDivElement | null>(null)
   const video2PlayerHolderRef = useRef<HTMLDivElement | null>(null)
   const video3PlayerHolderRef = useRef<HTMLDivElement | null>(null)
-  const tl = useRef<any>(null)
+  const tl = useRef<gsap.core.Timeline>(null)
 
 
   const BLOOM_INITIAL = 1
@@ -27,8 +27,8 @@ const App = () => {
   //     progress: {
   //       value: 0.0,
   //       min: 0.0,
-  //       max: 0.999,
-  //       step: 0.01
+  //       max: 1.0,
+  //       step: 0.0001
   //     },
   //     uTimeLineProgress: {
   //       value: 0.0,
@@ -45,7 +45,6 @@ const App = () => {
   // })
 
   useEffect(() => {
-    // return
     if (
       !video1PlayerHolderRef.current ||
       !video2PlayerHolderRef.current ||
@@ -66,38 +65,35 @@ const App = () => {
       repeat: -1
     })
 
-    // flower 1
-    tl.current.to(canvasHolderRef.current, { opacity: 0, duration: 0.01 }, 0)
+    // flower 1 (starts at 0)
     tl.current.to(video1PlayerHolderRef.current, { zIndex: 3, duration: 0.01 }, 0)
     tl.current.call(() => video1PlayerRef.current?.play(), null, 0)
+    tl.current.to(canvasHolderRef.current, { opacity: 0, duration: 0.01 }, 0.1)
+    tl.current.to(video1PlayerHolderRef.current, { zIndex: -1, duration: 0.01 }, 3.9622)
+    tl.current.to(canvasHolderRef.current, { opacity: 1, duration: 0.01 }, 3.9622)
+    tl.current.to(progress, { current: 1, duration: 10, ease: EPIC_EASE }, 3.9622)
+    tl.current.to(bloomIntensity, { current: BLOOM_PEAK, duration: 3, ease: EPIC_EASE }, 5.9622)
+    tl.current.to(bloomIntensity, { current: BLOOM_INITIAL, duration: 3, ease: EPIC_EASE }, 8.9622)
 
-    tl.current.to(video1PlayerHolderRef.current, { zIndex: -1, duration: 0.01 }, 4)
-    tl.current.to(canvasHolderRef.current, { opacity: 1, duration: 0.01 }, 4)
-    tl.current.to(progress, { current: 1, duration: 10, ease: EPIC_EASE }, 4)
-    tl.current.to(bloomIntensity, { current: BLOOM_PEAK, duration: 3, ease: EPIC_EASE }, 6)
-    tl.current.to(bloomIntensity, { current: BLOOM_INITIAL, duration: 3, ease: EPIC_EASE }, 9)
-
-    // flower 2 (start at 14.1 instead of 14)
-    tl.current.to(canvasHolderRef.current, { opacity: 0, duration: 0.01 }, 14)
+    // flower 2 (starts at 14)
     tl.current.to(video2PlayerHolderRef.current, { zIndex: 3, duration: 0.01 }, 14)
     tl.current.call(() => video2PlayerRef.current?.play(), null, 14)
+    tl.current.to(canvasHolderRef.current, { opacity: 0, duration: 0.01 }, 14.1)
+    tl.current.to(video2PlayerHolderRef.current, { zIndex: -1, duration: 0.01 }, 17.9622)
+    tl.current.to(canvasHolderRef.current, { opacity: 1, duration: 0.01 }, 17.9622)
+    tl.current.to(progress, { current: 2, duration: 10, ease: EPIC_EASE }, 17.9622)
+    tl.current.to(bloomIntensity, { current: BLOOM_PEAK, duration: 3, ease: EPIC_EASE }, 19.9622)
+    tl.current.to(bloomIntensity, { current: BLOOM_INITIAL, duration: 3, ease: EPIC_EASE }, 22.9622)
 
-    tl.current.to(video2PlayerHolderRef.current, { zIndex: -1, duration: 0.01 }, 18.1)
-    tl.current.to(canvasHolderRef.current, { opacity: 1, duration: 0.01 }, 17.7)
-    tl.current.to(progress, { current: 2, duration: 10, ease: EPIC_EASE }, 18.1)
-    tl.current.to(bloomIntensity, { current: BLOOM_PEAK, duration: 3, ease: EPIC_EASE }, 20)
-    tl.current.to(bloomIntensity, { current: BLOOM_INITIAL, duration: 3, ease: EPIC_EASE }, 23)
-
-    // flower 3 (shifted by +0.1 again)
-    tl.current.to(canvasHolderRef.current, { opacity: 0, duration: 0.01 }, 28.1)
+    // flower 3 (starts at 28.1)
     tl.current.to(video3PlayerHolderRef.current, { zIndex: 3, duration: 0.01 }, 28.1)
     tl.current.call(() => video3PlayerRef.current?.play(), null, 28.1)
-
-    tl.current.to(video3PlayerHolderRef.current, { zIndex: -1, duration: 0.01 }, 32.2)
-    tl.current.to(canvasHolderRef.current, { opacity: 1, duration: 0.01 }, 32.2)
-    tl.current.to(progress, { current: 3, duration: 10, ease: EPIC_EASE }, 32.2)
-    tl.current.to(bloomIntensity, { current: BLOOM_PEAK, duration: 3, ease: EPIC_EASE }, 34.2)
-    tl.current.to(bloomIntensity, { current: BLOOM_INITIAL, duration: 3, ease: EPIC_EASE }, 37.2)
+    tl.current.to(canvasHolderRef.current, { opacity: 0, duration: 0.01 }, 28.2)
+    tl.current.to(video3PlayerHolderRef.current, { zIndex: -1, duration: 0.01 }, 32.0622)
+    tl.current.to(canvasHolderRef.current, { opacity: 1, duration: 0.01 }, 32.0622)
+    tl.current.to(progress, { current: 3, duration: 10, ease: EPIC_EASE }, 32.0622)
+    tl.current.to(bloomIntensity, { current: BLOOM_PEAK, duration: 3, ease: EPIC_EASE }, 34.0622)
+    tl.current.to(bloomIntensity, { current: BLOOM_INITIAL, duration: 3, ease: EPIC_EASE }, 37.0622)
 
     return () => {
       tl.current.kill()
