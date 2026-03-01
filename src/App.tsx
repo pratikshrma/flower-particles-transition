@@ -3,7 +3,7 @@ import Experience from "./Components/Experience"
 import { OrbitControls } from "@react-three/drei"
 import style from './Styles/app.module.css'
 import gsap from 'gsap'
-import { useControls, folder } from "leva"
+// import { useControls, folder } from "leva"
 import { useEffect, useRef } from "react"
 import PostProcessing from "./Components/PostProcessing"
 
@@ -22,6 +22,7 @@ const App = () => {
   const BLOOM_INITIAL = 1
   const progress = useRef<number>(0.0)
   const bloomIntensity = useRef<number>(BLOOM_INITIAL)
+  //This is for testing ignore it
   // const { progress } = useControls({
   //   'random controls': folder({
   //     progress: {
@@ -67,7 +68,7 @@ const App = () => {
 
     // flower 1 (starts at 0)
     tl.current.to(video1PlayerHolderRef.current, { zIndex: 3, duration: 0.01 }, 0)
-    tl.current.call(() => video1PlayerRef.current?.play(), null, 0)
+    tl.current.call(() => { video1PlayerRef.current?.play() }, undefined, 0)
     tl.current.to(canvasHolderRef.current, { opacity: 0, duration: 0.01 }, 0.1)
     tl.current.to(video1PlayerHolderRef.current, { zIndex: -1, duration: 0.01 }, 3.9622)
     tl.current.to(canvasHolderRef.current, { opacity: 1, duration: 0.01 }, 3.9622)
@@ -77,7 +78,7 @@ const App = () => {
 
     // flower 2 (starts at 14)
     tl.current.to(video2PlayerHolderRef.current, { zIndex: 3, duration: 0.01 }, 14)
-    tl.current.call(() => video2PlayerRef.current?.play(), null, 14)
+    tl.current.call(() => { video2PlayerRef.current?.play() }, undefined, 14)
     tl.current.to(canvasHolderRef.current, { opacity: 0, duration: 0.01 }, 14.1)
     tl.current.to(video2PlayerHolderRef.current, { zIndex: -1, duration: 0.01 }, 17.9622)
     tl.current.to(canvasHolderRef.current, { opacity: 1, duration: 0.01 }, 17.9622)
@@ -87,7 +88,7 @@ const App = () => {
 
     // flower 3 (starts at 28.1)
     tl.current.to(video3PlayerHolderRef.current, { zIndex: 3, duration: 0.01 }, 28.1)
-    tl.current.call(() => video3PlayerRef.current?.play(), null, 28.1)
+    tl.current.call(() => { video3PlayerRef.current?.play() }, undefined, 28.1)
     tl.current.to(canvasHolderRef.current, { opacity: 0, duration: 0.01 }, 28.2)
     tl.current.to(video3PlayerHolderRef.current, { zIndex: -1, duration: 0.01 }, 32.0622)
     tl.current.to(canvasHolderRef.current, { opacity: 1, duration: 0.01 }, 32.0622)
@@ -96,7 +97,9 @@ const App = () => {
     tl.current.to(bloomIntensity, { current: BLOOM_INITIAL, duration: 3, ease: EPIC_EASE }, 37.0622)
 
     return () => {
-      tl.current.kill()
+      if (tl.current) {
+        tl.current.kill()
+      }
     }
   }, [])
 
