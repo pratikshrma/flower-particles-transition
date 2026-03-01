@@ -67,6 +67,7 @@ const App = () => {
     })
 
     // flower 1 (starts at 0)
+    tl.current.set(progress, { current: 0 }, 0)
     tl.current.to(video1PlayerHolderRef.current, { zIndex: 3, duration: 0.01 }, 0)
     tl.current.call(() => { video1PlayerRef.current?.play() }, undefined, 0)
     tl.current.to(canvasHolderRef.current, { opacity: 0, duration: 0.01 }, 0.1)
@@ -80,6 +81,7 @@ const App = () => {
     tl.current.to(video2PlayerHolderRef.current, { zIndex: 3, duration: 0.01 }, 14)
     tl.current.call(() => { video2PlayerRef.current?.play() }, undefined, 14)
     tl.current.to(canvasHolderRef.current, { opacity: 0, duration: 0.01 }, 14.1)
+    tl.current.set(progress, { current: 1.0001 }, 14.2)
     tl.current.to(video2PlayerHolderRef.current, { zIndex: -1, duration: 0.01 }, 17.9622)
     tl.current.to(canvasHolderRef.current, { opacity: 1, duration: 0.01 }, 17.9622)
     tl.current.to(progress, { current: 2, duration: 10, ease: EPIC_EASE }, 17.9622)
@@ -90,6 +92,7 @@ const App = () => {
     tl.current.to(video3PlayerHolderRef.current, { zIndex: 3, duration: 0.01 }, 28.1)
     tl.current.call(() => { video3PlayerRef.current?.play() }, undefined, 28.1)
     tl.current.to(canvasHolderRef.current, { opacity: 0, duration: 0.01 }, 28.2)
+    tl.current.set(progress, { current: 2.0001 }, 28.3)
     tl.current.to(video3PlayerHolderRef.current, { zIndex: -1, duration: 0.01 }, 32.0622)
     tl.current.to(canvasHolderRef.current, { opacity: 1, duration: 0.01 }, 32.0622)
     tl.current.to(progress, { current: 3, duration: 10, ease: EPIC_EASE }, 32.0622)
