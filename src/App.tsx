@@ -4,6 +4,7 @@ import style from './Styles/app.module.css'
 import gsap from 'gsap'
 import { useEffect, useRef } from "react"
 import { CustomEase } from "gsap/all"
+import { FaGithub, FaLinkedin } from "react-icons/fa"
 
 gsap.registerPlugin(CustomEase)
 
@@ -125,6 +126,14 @@ const App = () => {
             <color attach="background" args={['#000']} />
             <Experience progress={progress} bloomIntensity={bloomIntensity} />
           </Canvas>
+        </div>
+        <div className={style.socialLinks}>
+          <a href="https://github.com/pratikshrma/flower-particles-transition" target="_blank" rel="noopener noreferrer">
+            <FaGithub size={30} />
+          </a>
+          <a href="https://www.linkedin.com/in/pratik-sharma-9b9424349/" target="_blank" rel="noopener noreferrer">
+            <FaLinkedin size={30} />
+          </a>
         </div>
       </div>
     </>
