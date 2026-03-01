@@ -19,19 +19,19 @@ vec4 colorFinder() {
   vec4 vid3FColor = texture2D(uTextureVid3F, vUv);
   vec4 vid3EColor = texture2D(uTextureVid3E, vUv);
 
-  if (uProgress >= 0.0 && uProgress < 1.0) {
-    finalColor = mix(vid1EColor, vid2FColor, fract(uProgress));
-  } else if (uProgress >= 1.0 && uProgress < 2.0) {
-    finalColor = mix(vid2EColor, vid3FColor, fract(uProgress));
-  } else if (uProgress >= 2.0 && uProgress < 3.0) {
-    finalColor = mix(vid3EColor, vid1FColor, fract(uProgress));
+  if (uProgress <= 1.0) {
+    finalColor = mix(vid1EColor, vid2FColor, clamp(uProgress, 0.0, 1.0));
+  } else if (uProgress <= 2.0) {
+    finalColor = mix(vid2EColor, vid3FColor, clamp(uProgress - 1.0, 0.0, 1.0));
+  } else {
+    finalColor = mix(vid3EColor, vid1FColor, clamp(uProgress - 2.0, 0.0, 1.0));
   }
   return finalColor;
 }
 
 void main() {
   vec4 finalColor = colorFinder();
-  if (finalColor.r < 0.01 && finalColor.g < 0.01 && finalColor.b < 0.01)
+  if (finalColor.r < 0.1 && finalColor.g < 0.1 && finalColor.b < 0.1)
     discard;
 
   gl_FragColor = finalColor * uLuminosity;
