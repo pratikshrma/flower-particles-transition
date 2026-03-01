@@ -1,4 +1,4 @@
-#define PI 3.1415926538;
+#define PI 3.1415926538
 varying vec2 vUv;
 
 uniform float uProgress;

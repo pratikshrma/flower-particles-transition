@@ -48,7 +48,12 @@ const App = () => {
 
     tl.current.set(progress, { current: 0 }, 0)
     tl.current.to(video1PlayerHolderRef.current, { zIndex: 3, duration: 0.01 }, 0)
-    tl.current.call(() => { video1PlayerRef.current?.play() }, undefined, 0)
+    tl.current.call(() => { 
+      if (video1PlayerRef.current) {
+        video1PlayerRef.current.currentTime = 0
+        video1PlayerRef.current.play() 
+      }
+    }, undefined, 0)
     tl.current.to(canvasHolderRef.current, { opacity: 0, duration: 0.01 }, 0.1)
     tl.current.to(video1PlayerHolderRef.current, { zIndex: -1, duration: 0.01 }, 3.9622)
     tl.current.to(canvasHolderRef.current, { opacity: 1, duration: 0.01 }, 3.9652)
@@ -58,7 +63,12 @@ const App = () => {
 
     // flower 2 (starts at 8.9652 — right when transition ends)
     tl.current.to(video2PlayerHolderRef.current, { zIndex: 3, duration: 0.01 }, 8.9652)
-    tl.current.call(() => { video2PlayerRef.current?.play() }, undefined, 8.9652)
+    tl.current.call(() => { 
+      if (video2PlayerRef.current) {
+        video2PlayerRef.current.currentTime = 0
+        video2PlayerRef.current.play() 
+      }
+    }, undefined, 8.9652)
     tl.current.to(canvasHolderRef.current, { opacity: 0, duration: 0.01 }, 9.0652)
     tl.current.set(progress, { current: 1.0001 }, 9.1652)
     tl.current.to(video2PlayerHolderRef.current, { zIndex: -1, duration: 0.01 }, 12.9274)
@@ -69,7 +79,12 @@ const App = () => {
 
     // flower 3 (starts at 17.9274 — right when transition ends)
     tl.current.to(video3PlayerHolderRef.current, { zIndex: 3, duration: 0.01 }, 17.9274)
-    tl.current.call(() => { video3PlayerRef.current?.play() }, undefined, 17.9274)
+    tl.current.call(() => { 
+      if (video3PlayerRef.current) {
+        video3PlayerRef.current.currentTime = 0
+        video3PlayerRef.current.play() 
+      }
+    }, undefined, 17.9274)
     tl.current.to(canvasHolderRef.current, { opacity: 0, duration: 0.01 }, 18.0274)
     tl.current.set(progress, { current: 2.0001 }, 18.1274)
     tl.current.to(video3PlayerHolderRef.current, { zIndex: -1, duration: 0.01 }, 21.8896)
