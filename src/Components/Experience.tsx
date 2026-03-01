@@ -51,7 +51,8 @@ const Experience = ({ progress, bloomIntensity }: { progress: any, bloomIntensit
         uTextureVid3E: { value: null },
         uProgress: { value: 0 },
         uTime: { value: 0 },
-        uLuminosity: { value: 1.0 }
+        uLuminosity: { value: 1.0 },
+        uPixelRatio: { value: window.devicePixelRatio }
 
       }
     })
