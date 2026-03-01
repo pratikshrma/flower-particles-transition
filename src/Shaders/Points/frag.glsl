@@ -34,5 +34,14 @@ void main() {
   if (finalColor.r < 0.1 && finalColor.g < 0.1 && finalColor.b < 0.1)
     discard;
 
-  gl_FragColor = finalColor * uLuminosity;
+  finalColor = finalColor * uLuminosity;
+
+  float brightness = 0.92;
+  finalColor = finalColor * brightness;
+
+  // boost saturation
+  float gray = dot(finalColor.rgb, vec3(0.299, 0.587, 0.114));
+  finalColor.rgb = mix(vec3(gray), finalColor.rgb, 1.15);
+
+  gl_FragColor = finalColor;
 }

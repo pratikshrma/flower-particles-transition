@@ -1,7 +1,8 @@
-#define PI 3.1415926538
+#define PI 3.1415926538;
 varying vec2 vUv;
 
 uniform float uProgress;
+uniform float uPixelRatio;
 uniform float uTime;
 
 const float EPS = 0.001;
@@ -127,8 +128,8 @@ void main() {
   vec4 viewPosition = viewMatrix * modelPosition;
   vec4 projectedPosition = projectionMatrix * viewPosition;
 
-  float pointSize = 4.0;
+  float pointSize = 1.5;
 
-  gl_PointSize = pointSize * (1.0 / -viewPosition.z);
+  gl_PointSize = pointSize * uPixelRatio * (1.0 / -viewPosition.z);
   gl_Position = projectedPosition;
 }

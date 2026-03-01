@@ -1,11 +1,11 @@
 import { Canvas } from "@react-three/fiber"
 import Experience from "./Components/Experience"
-import { OrbitControls } from "@react-three/drei"
 import style from './Styles/app.module.css'
 import gsap from 'gsap'
-// import { useControls, folder } from "leva"
 import { useEffect, useRef } from "react"
-import PostProcessing from "./Components/PostProcessing"
+import { CustomEase } from "gsap/all"
+
+gsap.registerPlugin(CustomEase)
 
 const App = () => {
   const canvasHolderRef = useRef<HTMLDivElement | null>(null)
@@ -22,28 +22,6 @@ const App = () => {
   const BLOOM_INITIAL = 1
   const progress = useRef<number>(0.0)
   const bloomIntensity = useRef<number>(BLOOM_INITIAL)
-  //This is for testing ignore it
-  // const { progress } = useControls({
-  //   'random controls': folder({
-  //     progress: {
-  //       value: 0.0,
-  //       min: 0.0,
-  //       max: 1.0,
-  //       step: 0.0001
-  //     },
-  //     uTimeLineProgress: {
-  //       value: 0.0,
-  //       min: 0.0,
-  //       max: 20.0,
-  //       step: 0.0001,
-  //       onChange: (v) => {
-  //         if (tl.current) {
-  //           tl.current.seek(v)
-  //         }
-  //       }
-  //     }
-  //   })
-  // })
 
   useEffect(() => {
     if (
@@ -58,7 +36,9 @@ const App = () => {
     gsap.set(video3PlayerHolderRef.current, { zIndex: -1 })
 
     // const EPIC_EASE = "cubic-bezier(0.95, 0.0, 0.05, 1)"
-    const EPIC_EASE = "expo.inOut"
+    // const EPIC_EASE = "expo.inOut"
+    // const EPIC_EASE = CustomEase.create("custom", "M0,0 C0.795,0 1,0.299 1,1 ");
+    const EPIC_EASE = CustomEase.create("custom", "M0,0 C1.026,0 0.754,1 1,1 ")
     const BLOOM_PEAK = 3.0
 
     tl.current = gsap.timeline({
@@ -66,38 +46,37 @@ const App = () => {
       repeat: -1
     })
 
-    // flower 1 (starts at 0)
     tl.current.set(progress, { current: 0 }, 0)
     tl.current.to(video1PlayerHolderRef.current, { zIndex: 3, duration: 0.01 }, 0)
     tl.current.call(() => { video1PlayerRef.current?.play() }, undefined, 0)
     tl.current.to(canvasHolderRef.current, { opacity: 0, duration: 0.01 }, 0.1)
     tl.current.to(video1PlayerHolderRef.current, { zIndex: -1, duration: 0.01 }, 3.9622)
-    tl.current.to(canvasHolderRef.current, { opacity: 1, duration: 0.01 }, 3.9622)
-    tl.current.to(progress, { current: 1, duration: 10, ease: EPIC_EASE }, 3.9622)
-    tl.current.to(bloomIntensity, { current: BLOOM_PEAK, duration: 3, ease: EPIC_EASE }, 5.9622)
-    tl.current.to(bloomIntensity, { current: BLOOM_INITIAL, duration: 3, ease: EPIC_EASE }, 8.9622)
+    tl.current.to(canvasHolderRef.current, { opacity: 1, duration: 0.01 }, 3.9652)
+    tl.current.to(progress, { current: 1, duration: 5, ease: EPIC_EASE }, 3.9652)
+    tl.current.to(bloomIntensity, { current: BLOOM_PEAK, duration: 2.5, ease: EPIC_EASE }, 3.9652)
+    tl.current.to(bloomIntensity, { current: BLOOM_INITIAL, duration: 2.5, ease: EPIC_EASE }, 6.4652)
 
-    // flower 2 (starts at 14)
-    tl.current.to(video2PlayerHolderRef.current, { zIndex: 3, duration: 0.01 }, 14)
-    tl.current.call(() => { video2PlayerRef.current?.play() }, undefined, 14)
-    tl.current.to(canvasHolderRef.current, { opacity: 0, duration: 0.01 }, 14.1)
-    tl.current.set(progress, { current: 1.0001 }, 14.2)
-    tl.current.to(video2PlayerHolderRef.current, { zIndex: -1, duration: 0.01 }, 17.9622)
-    tl.current.to(canvasHolderRef.current, { opacity: 1, duration: 0.01 }, 17.9622)
-    tl.current.to(progress, { current: 2, duration: 10, ease: EPIC_EASE }, 17.9622)
-    tl.current.to(bloomIntensity, { current: BLOOM_PEAK, duration: 3, ease: EPIC_EASE }, 19.9622)
-    tl.current.to(bloomIntensity, { current: BLOOM_INITIAL, duration: 3, ease: EPIC_EASE }, 22.9622)
+    // flower 2 (starts at 8.9652 — right when transition ends)
+    tl.current.to(video2PlayerHolderRef.current, { zIndex: 3, duration: 0.01 }, 8.9652)
+    tl.current.call(() => { video2PlayerRef.current?.play() }, undefined, 8.9652)
+    tl.current.to(canvasHolderRef.current, { opacity: 0, duration: 0.01 }, 9.0652)
+    tl.current.set(progress, { current: 1.0001 }, 9.1652)
+    tl.current.to(video2PlayerHolderRef.current, { zIndex: -1, duration: 0.01 }, 12.9274)
+    tl.current.to(canvasHolderRef.current, { opacity: 1, duration: 0.01 }, 12.9274)
+    tl.current.to(progress, { current: 2, duration: 5, ease: EPIC_EASE }, 12.9274)
+    tl.current.to(bloomIntensity, { current: BLOOM_PEAK, duration: 2.5, ease: EPIC_EASE }, 12.9274)
+    tl.current.to(bloomIntensity, { current: BLOOM_INITIAL, duration: 2.5, ease: EPIC_EASE }, 15.4274)
 
-    // flower 3 (starts at 28.1)
-    tl.current.to(video3PlayerHolderRef.current, { zIndex: 3, duration: 0.01 }, 28.1)
-    tl.current.call(() => { video3PlayerRef.current?.play() }, undefined, 28.1)
-    tl.current.to(canvasHolderRef.current, { opacity: 0, duration: 0.01 }, 28.2)
-    tl.current.set(progress, { current: 2.0001 }, 28.3)
-    tl.current.to(video3PlayerHolderRef.current, { zIndex: -1, duration: 0.01 }, 32.0622)
-    tl.current.to(canvasHolderRef.current, { opacity: 1, duration: 0.01 }, 32.0622)
-    tl.current.to(progress, { current: 3, duration: 10, ease: EPIC_EASE }, 32.0622)
-    tl.current.to(bloomIntensity, { current: BLOOM_PEAK, duration: 3, ease: EPIC_EASE }, 34.0622)
-    tl.current.to(bloomIntensity, { current: BLOOM_INITIAL, duration: 3, ease: EPIC_EASE }, 37.0622)
+    // flower 3 (starts at 17.9274 — right when transition ends)
+    tl.current.to(video3PlayerHolderRef.current, { zIndex: 3, duration: 0.01 }, 17.9274)
+    tl.current.call(() => { video3PlayerRef.current?.play() }, undefined, 17.9274)
+    tl.current.to(canvasHolderRef.current, { opacity: 0, duration: 0.01 }, 18.0274)
+    tl.current.set(progress, { current: 2.0001 }, 18.1274)
+    tl.current.to(video3PlayerHolderRef.current, { zIndex: -1, duration: 0.01 }, 21.8896)
+    tl.current.to(canvasHolderRef.current, { opacity: 1, duration: 0.01 }, 21.8896)
+    tl.current.to(progress, { current: 3, duration: 5, ease: EPIC_EASE }, 21.8896)
+    tl.current.to(bloomIntensity, { current: BLOOM_PEAK, duration: 2.5, ease: EPIC_EASE }, 21.8896)
+    tl.current.to(bloomIntensity, { current: BLOOM_INITIAL, duration: 2.5, ease: EPIC_EASE }, 24.3896)
 
     return () => {
       if (tl.current) {
@@ -123,12 +102,12 @@ const App = () => {
           </div>
         </div>
         <div ref={canvasHolderRef} className={style.canvasHolder}>
-          <Canvas linear camera={{
+          <Canvas flat camera={{
             position: [0, 0, -1.1],
-          }}>
+          }}
+            dpr={[1.0, 1.5]}
+          >
             <color attach="background" args={['#000']} />
-            <OrbitControls />
-            <PostProcessing />
             <Experience progress={progress} bloomIntensity={bloomIntensity} />
           </Canvas>
         </div>
